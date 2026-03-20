@@ -1,14 +1,15 @@
 {
   "name": "sigpulse",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "SigPulse helps you understand focus, activity, and work patterns with local-first tracking and optional AI-powered daily insights—built for clarity and privacy.",
   "main": "main/index.js",
   "scripts": {
     "start": "electron .",
     "dev": "electron .",
+    "release": "node scripts/release.js",
     "dist": "electron-builder",
     "seed-activity-log": "node main/seed-sample-activity-log.js",
-    "postinstall": "node -e \"require('fs').mkdirSync('renderer/vendor',{recursive:true});require('fs').copyFileSync('node_modules/chart.js/dist/chart.umd.min.js','renderer/vendor/chart.umd.min.js');\""
+    "postinstall": "node -e \"require('fs').mkdirSync('renderer/vendor',{recursive:true});require('fs').copyFileSync('node_modules/chart.js/dist/chart.umd.min.js','renderer/vendor/chart.umd.min.js');\" && patch-package"
   },
   "keywords": [
     "electron",
@@ -73,7 +74,8 @@
   },
   "devDependencies": {
     "electron": "^28.0.0",
-    "electron-builder": "^26.8.1"
+    "electron-builder": "^26.8.1",
+    "patch-package": "^8.0.1"
   },
   "overrides": {
     "@electron/rebuild": {
