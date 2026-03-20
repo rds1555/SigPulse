@@ -6,6 +6,9 @@
 # electron-builder output
 dist/
 
+# Dev-mode app data (written under repo root — never commit private captures)
+screenshots/
+
 # Dependencies & OS noise
 node_modules/
 Thumbs.db

@@ -28,7 +28,8 @@
       "!**/.env.*",
       "!.git/**",
       "!.cursor/**",
-      "!dist/**"
+      "!dist/**",
+      "!screenshots/**"
     ],
     "asarUnpack": [
       "**/*.node"
