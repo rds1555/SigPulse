@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "text": "{\"summary\":\"Low focus score indicates poor productivity.\\nHigh idle time and frequent context switching are concerns.\\nImprovement is needed.\",\"highlights\":[\"Some coding time was logged\",\"Meetings were relatively short\"],\"warnings\":[\"High idle time is a significant concern\",\"Frequent context switching is detrimental to focus\"],\"suggestions\":[\"Minimize idle time by setting regular work intervals\",\"Reduce context switching by prioritizing tasks\",\"Increase coding time to improve productivity\"],\"tags\":[\"Distraction\",\"Context Switching\"]}",
+  "generatedAt": "2026-03-20T06:13:53.202Z"
+}

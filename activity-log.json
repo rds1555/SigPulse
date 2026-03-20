@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "2026-03-19": {
+    "coding_hours": 3.8,
+    "browsing_hours": 2,
+    "meeting_hours": 1.5,
+    "idle_hours": 0.65,
+    "focus_score": 71,
+    "summary_text": ""
+  },
+  "2026-03-18": {
+    "coding_hours": 4.5,
+    "browsing_hours": 1.4,
+    "meeting_hours": 2,
+    "idle_hours": 0.35,
+    "focus_score": 68,
+    "summary_text": ""
+  },
+  "2026-03-17": {
+    "coding_hours": 6,
+    "browsing_hours": 0.9,
+    "meeting_hours": 0.5,
+    "idle_hours": 0.5,
+    "focus_score": 88,
+    "summary_text": ""
+  },
+  "2026-03-16": {
+    "coding_hours": 2.5,
+    "browsing_hours": 2.8,
+    "meeting_hours": 1.2,
+    "idle_hours": 1.1,
+    "focus_score": 55,
+    "summary_text": ""
+  },
+  "2026-03-15": {
+    "coding_hours": 5.2,
+    "browsing_hours": 1.1,
+    "meeting_hours": 0.8,
+    "idle_hours": 0.45,
+    "focus_score": 82,
+    "summary_text": ""
+  },
+  "2026-03-20": {
+    "coding_hours": 1.69,
+    "browsing_hours": 3.14,
+    "meeting_hours": 0.91,
+    "idle_hours": 2.71,
+    "focus_score": 42,
+    "summary_text": "{\"summary\":\"Low focus score indicates poor productivity.\\nHigh idle time and frequent context switching are concerns.\\nImprovement is needed.\",\"highlights\":[\"Some coding time was logged\",\"Meetings were relatively short\"],\"warnings\":[\"High idle time is a significant concern\",\"Frequent context switching is detrimental to focus\"],\"suggestions\":[\"Minimize idle time by setting regular work intervals\",\"Reduce context switching by prioritizing tasks\",\"Increase coding time to improve productivity\"],\"tags\":[\"Distraction\",\"Context Switching\"]}"
+  },
+  "2026-03-14": {
+    "coding_hours": 3.8,
+    "browsing_hours": 2,
+    "meeting_hours": 1.5,
+    "idle_hours": 0.65,
+    "focus_score": 71,
+    "summary_text": ""
+  }
+}

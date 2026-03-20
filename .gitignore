@@ -1,0 +1,12 @@
+# Local secrets — never commit
+.env
+.env.local
+.env.*.local
+
+# electron-builder output
+dist/
+
+# Dependencies & OS noise
+node_modules/
+Thumbs.db
+.DS_Store

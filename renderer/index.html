@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'" />
+  <title>SigPulse</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/onboarding.css" />
+</head>
+<body>
+  <div id="auto-update-banner" class="auto-update-banner" hidden role="status" aria-live="polite" aria-label="App update">
+    <div class="auto-update-banner__inner">
+      <p id="auto-update-banner-text" class="auto-update-banner__text">Update available</p>
+      <progress id="auto-update-progress" class="auto-update-banner__progress" max="100" value="0" hidden></progress>
+      <div class="auto-update-banner__actions">
+        <button type="button" id="btn-auto-update-download" class="btn btn-auto-update" hidden>Download Update</button>
+        <button type="button" id="btn-auto-update-restart" class="btn btn-auto-update btn-auto-update--primary" hidden>
+          Restart to Install
+        </button>
+        <button type="button" id="btn-auto-update-dismiss" class="btn btn-auto-update" hidden>Dismiss</button>
+      </div>
+    </div>
+  </div>
+  <div id="onboarding-root" class="onboarding-root" hidden aria-hidden="true"></div>
+  <div class="app-shell">
+    <!-- Left sidebar -->
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-top">
+          <span class="sidebar-brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="3" width="26" height="26" rx="7" stroke="currentColor" stroke-width="1.5" opacity="0.35" />
+              <path
+                d="M9 19.5 L13.5 13.5 L17.5 17 L23 9.5"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="23" cy="9.5" r="2" fill="currentColor" />
+            </svg>
+          </span>
+          <div class="sidebar-brand-heading">
+            <span class="sidebar-logo">SigPulse</span>
+            <span class="sidebar-version" aria-label="Version 1.0">v1.0</span>
+          </div>
+        </div>
+        <p class="sidebar-tagline">Understand your work. Improve your focus</p>
+      </div>
+      <nav class="sidebar-nav" role="navigation">
+        <button type="button" class="sidebar-nav-item is-active" data-view="dashboard" id="nav-dashboard">
+          Dashboard
+        </button>
+        <button type="button" class="sidebar-nav-item" data-view="activity" id="nav-activity">
+          Activity
+        </button>
+        <button type="button" class="sidebar-nav-item" data-view="insights" id="nav-insights">
+          Insights
+        </button>
+        <button type="button" class="sidebar-nav-item" data-view="settings" id="nav-settings">
+          Settings
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <div class="main-area">
+      <header class="main-header">
+        <div class="main-header-row">
+          <h1 id="main-view-title" class="main-title">Dashboard</h1>
+          <button
+            type="button"
+            class="btn btn-today-primary btn-refresh-insights"
+            id="btn-refresh-insights-primary"
+            aria-busy="false"
+          >
+            <span class="btn-refresh-insights-inner">
+              <span class="btn-refresh-insights-spinner" aria-hidden="true"></span>
+              <span class="btn-refresh-insights-label">Refresh Insights</span>
+            </span>
+          </button>
+        </div>
+      </header>
+      <div class="main-body">
+
+        <!-- Dashboard: metrics & timeline -->
+        <section id="view-dashboard" class="content-view is-active" aria-labelledby="main-view-title">
+          <div class="view-stack">
+            <section class="todays-insights" aria-labelledby="todays-insights-heading">
+              <div class="todays-insights-card" id="todays-insights-card">
+                <div class="todays-insights-glow" aria-hidden="true"></div>
+                <div class="todays-insights-inner">
+                  <div class="todays-insights-top">
+                    <div class="todays-insights-title-row">
+                      <span class="todays-insights-badge" aria-hidden="true">✦</span>
+                      <h2 id="todays-insights-heading" class="todays-insights-title">Today's Insights</h2>
+                    </div>
+                    <div class="todays-insights-focus-wrap" id="todays-insights-focus-wrap">
+                      <span class="todays-insights-focus-label">Focus score</span>
+                      <div class="todays-insights-focus-numbers">
+                        <span id="todays-insights-focus-value" class="todays-insights-focus-value">—</span>
+                        <span id="todays-insights-focus-sub" class="todays-insights-focus-sub"></span>
+                      </div>
+                      <p
+                        id="todays-insights-focus-compare"
+                        class="todays-insights-focus-compare"
+                        hidden
+                        aria-live="polite"
+                      ></p>
+                    </div>
+                  </div>
+                  <p
+                    id="todays-insights-status"
+                    class="todays-insights-status todays-insights-status--loading"
+                    aria-live="polite"
+                  >
+                    Loading…
+                  </p>
+                  <div
+                    id="todays-insights-structured"
+                    class="todays-insights-structured"
+                    hidden
+                    aria-label="Highlights, warnings, and suggestions"
+                  ></div>
+                  <div
+                    id="todays-insights-key-events"
+                    class="todays-insights-key-events"
+                    aria-label="Key events from activity"
+                    hidden
+                  ></div>
+                  <p id="todays-insights-meta" class="todays-insights-meta" hidden></p>
+                </div>
+              </div>
+            </section>
+
+            <div class="summary-stats" role="region" aria-label="Summary statistics">
+              <article class="summary-stat-card">
+                <div class="summary-stat-icon summary-stat-icon--hours" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 7v5l3 2" />
+                  </svg>
+                </div>
+                <div class="summary-stat-body">
+                  <span class="summary-stat-label">Total hours</span>
+                  <span id="summary-stat-total-hours" class="summary-stat-value">—</span>
+                </div>
+              </article>
+              <article class="summary-stat-card summary-stat-card--focus" id="summary-stat-focus-card">
+                <div class="summary-stat-icon summary-stat-icon--focus" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2M12 20v2M2 12h2M20 12h2" />
+                  </svg>
+                </div>
+                <div class="summary-stat-body">
+                  <span class="summary-stat-label">Focus score</span>
+                  <span id="summary-stat-focus" class="summary-stat-value">—</span>
+                  <span id="summary-stat-focus-sub" class="summary-stat-sub"></span>
+                </div>
+              </article>
+              <article class="summary-stat-card">
+                <div class="summary-stat-icon summary-stat-icon--productive" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 3v18h18" />
+                    <path d="M7 14l4-4 4 4 5-6" />
+                  </svg>
+                </div>
+                <div class="summary-stat-body">
+                  <span class="summary-stat-label">Productive time</span>
+                  <span id="summary-stat-productive" class="summary-stat-value">—</span>
+                  <span class="summary-stat-sub">Coding + meetings</span>
+                </div>
+              </article>
+              <article class="summary-stat-card">
+                <div class="summary-stat-icon summary-stat-icon--idle" aria-hidden="true">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    <path d="M19 3v4M17 5h4" />
+                  </svg>
+                </div>
+                <div class="summary-stat-body">
+                  <span class="summary-stat-label">Idle time</span>
+                  <span id="summary-stat-idle" class="summary-stat-value">—</span>
+                </div>
+              </article>
+            </div>
+
+            <div class="dashboard-grid">
+              <div class="dashboard-card activity-card dashboard-card--wide">
+                <h2 class="card-title">Activity breakdown</h2>
+                <div class="activity-breakdown-layout">
+                  <div class="activity-chart-panel">
+                    <div class="activity-chart-inner">
+                      <canvas id="activity-breakdown-chart" role="img" aria-label="Hours by category: Coding, Browsing, Meetings, Idle"></canvas>
+                      <p id="activity-chart-empty" class="empty-state activity-chart-empty" hidden>No data for these categories yet.</p>
+                    </div>
+                  </div>
+                  <div id="activity-breakdown" class="activity-breakdown">
+                    <p class="empty-state">No activity data yet.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Activity: tracking controls -->
+        <section id="view-activity" class="content-view" hidden aria-labelledby="main-view-title">
+          <div class="view-stack view-stack--narrow">
+            <div id="tracking-active-banner" class="tracking-active-banner" aria-live="polite" hidden>
+              <span class="tracking-active-icon" aria-hidden="true">●</span>
+              <span id="tracking-active-text" class="tracking-active-text">Tracking active</span>
+              <p id="tracking-active-detail" class="tracking-active-detail">Data is stored locally in this app’s folder.</p>
+            </div>
+            <div class="panel-card">
+              <h2 class="panel-card-title">Tracking</h2>
+              <p class="panel-card-desc">Start or pause collection. When active, data is stored locally per your privacy settings.</p>
+              <div class="status-row status-row--inline">
+                <span class="status-label">Status</span>
+                <span id="status-indicator" class="status-badge status-off" aria-live="polite">Tracking OFF</span>
+              </div>
+              <div class="controls-row controls-row--start">
+                <button id="btn-start" type="button" class="btn btn-start">Start Tracking</button>
+                <button id="btn-pause" type="button" class="btn btn-pause">Pause</button>
+                <button id="btn-resume" type="button" class="btn btn-resume">Resume</button>
+                <button id="btn-stop" type="button" class="btn btn-stop">Stop</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Insights: Weekly Insights dashboard -->
+        <section id="view-insights" class="content-view" hidden aria-labelledby="main-view-title">
+          <div class="view-stack weekly-insights-page">
+            <p class="weekly-insights-lead">
+              <button type="button" class="btn btn-today btn-refresh-insights" id="btn-refresh-insights-weekly" aria-busy="false">
+                <span class="btn-refresh-insights-inner">
+                  <span class="btn-refresh-insights-spinner" aria-hidden="true"></span>
+                  <span class="btn-refresh-insights-label">Refresh Insights</span>
+                </span>
+              </button>
+              <span class="weekly-insights-lead-hint">Regenerates today’s AI summary and syncs dashboard stats · charts use saved 7-day rollups</span>
+            </p>
+
+            <article class="weekly-insights-card weekly-insights-card--chart">
+              <h2 class="weekly-insights-section-title">Focus score trend</h2>
+              <p class="weekly-insights-section-desc">Last 7 days · focus score by date</p>
+              <div class="weekly-insights-chart-wrap">
+                <canvas id="insights-focus-trend-chart" role="img" aria-label="Focus score trend last 7 days"></canvas>
+                <p id="insights-focus-trend-empty" class="weekly-insights-chart-empty" hidden>No data available</p>
+              </div>
+            </article>
+
+            <article class="weekly-insights-card weekly-insights-card--chart">
+              <h2 class="weekly-insights-section-title">Activity breakdown</h2>
+              <p class="weekly-insights-section-desc">Stacked hours per day — coding, browsing, meetings, idle</p>
+              <div class="weekly-insights-chart-wrap weekly-insights-chart-wrap--tall">
+                <canvas id="insights-activity-stacked-chart" role="img" aria-label="Stacked activity hours by day"></canvas>
+                <p id="insights-activity-stacked-empty" class="weekly-insights-chart-empty" hidden>No data available</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Settings: privacy, demo, delete -->
+        <section id="view-settings" class="content-view" hidden aria-labelledby="main-view-title">
+          <div class="view-stack view-stack--narrow">
+            <details class="privacy-section privacy-section--card" open>
+              <summary class="privacy-section-summary">Privacy &amp; data</summary>
+              <div class="privacy-section-body">
+                <label class="privacy-toggle">
+                  <input type="checkbox" id="setting-screenshots" checked />
+                  <span>Enable screenshots</span>
+                </label>
+                <p class="privacy-hint">When off, no screenshots are taken while tracking. App usage and idle time are still recorded.</p>
+                <label class="privacy-toggle">
+                  <input type="checkbox" id="setting-gentle-nudges" checked />
+                  <span>Gentle desktop nudges</span>
+                </label>
+                <p class="privacy-hint">
+                  Quiet toasts: long idle reminder and occasional praise when focus score is high. Uses system notifications (silent where supported).
+                </p>
+                <label class="privacy-label" for="setting-blacklist">Blacklisted apps (comma-separated)</label>
+                <input type="text" id="setting-blacklist" class="privacy-input" placeholder="e.g. WhatsApp, Banking, Chase" />
+                <p class="privacy-hint">Active window is not recorded when the app name contains any of these terms. Case-insensitive.</p>
+                <button type="button" id="btn-save-settings" class="btn btn-save-settings">Save settings</button>
+              </div>
+            </details>
+            <details class="privacy-section privacy-section--card" open>
+              <summary class="privacy-section-summary">AI Configuration</summary>
+              <div class="privacy-section-body">
+                <p id="groq-api-key-status" class="groq-api-status groq-api-status--pending" role="status" aria-live="polite">
+                  <span class="groq-api-status__dot" aria-hidden="true"></span>
+                  <span class="groq-api-status__text">Checking…</span>
+                </p>
+                <p class="privacy-hint">
+                  Enter your Groq API key for AI-generated daily insights.
+                  <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer">Get a key from Groq</a>.
+                  Stored encrypted on this device; never exposed to the web view.
+                </p>
+                <label class="privacy-label" for="setting-groq-api-key">Enter Groq API Key</label>
+                <div class="groq-key-field-row">
+                  <input
+                    type="password"
+                    id="setting-groq-api-key"
+                    class="privacy-input groq-key-input"
+                    autocomplete="off"
+                    spellcheck="false"
+                    placeholder="gsk_…"
+                  />
+                  <button type="button" id="btn-toggle-groq-key-visibility" class="btn btn-groq-toggle">
+                    Show
+                  </button>
+                </div>
+                <div class="groq-key-actions">
+                  <button type="button" id="btn-test-groq-key" class="btn btn-groq-test">Test API Key</button>
+                  <button type="button" id="btn-save-groq-key" class="btn btn-save-settings">Save</button>
+                </div>
+                <p id="groq-key-save-message" class="privacy-hint groq-key-save-message" hidden role="status" aria-live="polite"></p>
+              </div>
+            </details>
+            <div class="panel-card settings-onboarding-card">
+              <h2 class="panel-card-title">Onboarding</h2>
+              <p class="panel-card-desc">Review the welcome tour anytime.</p>
+              <button type="button" id="btn-view-onboarding" class="btn btn-view-onboarding">
+                View onboarding
+              </button>
+            </div>
+            <div class="panel-card">
+              <h2 class="panel-card-title">Presentation</h2>
+              <fieldset class="settings-fieldset settings-insights-layout">
+                <legend class="settings-fieldset-legend">Dashboard insight cards</legend>
+                <p class="privacy-hint settings-fieldset-hint">
+                  How Highlights, Warnings, Suggestions, and Key Events appear on the Dashboard.
+                </p>
+                <label class="settings-radio-row">
+                  <input type="radio" name="setting-insights-layout" value="classic" checked />
+                  <span>Classic — rounded panel cards (current default)</span>
+                </label>
+                <label class="settings-radio-row">
+                  <input type="radio" name="setting-insights-layout" value="banner" />
+                  <span>Banner — chevron ribbons with icon + content strip (like a status board)</span>
+                </label>
+              </fieldset>
+              <label class="demo-mode-toggle demo-mode-toggle--block">
+                <input type="checkbox" id="setting-demo-mode" />
+                <span>Demo mode</span>
+              </label>
+              <p id="demo-mode-notice" class="demo-mode-notice demo-mode-notice--block" hidden>Showing sample data for presentation. Toggle off to see your real data.</p>
+            </div>
+            <div class="panel-card panel-card--danger-zone">
+              <h2 class="panel-card-title">Danger zone</h2>
+              <p class="panel-card-desc">Permanently remove today’s stored data from this device.</p>
+              <button id="btn-delete-today" type="button" class="btn btn-delete">Delete today’s data</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/utils.js"></script>
+  <script src="vendor/chart.umd.min.js"></script>
+  <script src="scripts/app.js"></script>
+  <script src="scripts/auto-update.js"></script>
+  <script src="scripts/ai-settings.js"></script>
+  <script src="scripts/dashboard.js"></script>
+  <script src="scripts/insights-weekly-data.js"></script>
+  <script src="scripts/insights-weekly-charts.js"></script>
+  <script src="scripts/insights-weekly-page.js"></script>
+  <script src="scripts/layout.js"></script>
+  <script src="scripts/onboarding.js"></script>
+</body>
+</html>

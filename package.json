@@ -1,0 +1,83 @@
+{
+  "name": "sigpulse",
+  "version": "1.0.0",
+  "description": "SigPulse helps you understand focus, activity, and work patterns with local-first tracking and optional AI-powered daily insights—built for clarity and privacy.",
+  "main": "main/index.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "dist": "electron-builder",
+    "seed-activity-log": "node main/seed-sample-activity-log.js",
+    "postinstall": "node -e \"require('fs').mkdirSync('renderer/vendor',{recursive:true});require('fs').copyFileSync('node_modules/chart.js/dist/chart.umd.min.js','renderer/vendor/chart.umd.min.js');\""
+  },
+  "keywords": [
+    "electron",
+    "productivity"
+  ],
+  "author": "SigPulse",
+  "license": "MIT",
+  "build": {
+    "appId": "com.sigpulse.app",
+    "productName": "SigPulse",
+    "copyright": "Copyright © 2026 SigPulse",
+    "icon": "icon.ico",
+    "files": [
+      "**/*",
+      "!**/.env",
+      "!**/.env.*",
+      "!.git/**",
+      "!.cursor/**",
+      "!dist/**"
+    ],
+    "asarUnpack": [
+      "**/*.node"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "legalTrademarks": "SigPulse",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "SigPulse",
+      "uninstallDisplayName": "SigPulse ${version}",
+      "installerIcon": "icon.ico",
+      "license": "build/installer-license.txt",
+      "language": "1033",
+      "installerLanguages": [
+        "en_US"
+      ],
+      "unicode": true,
+      "runAfterFinish": true
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "rds1555",
+      "repo": "SigPulse"
+    }
+  },
+  "dependencies": {
+    "active-win": "^9.0.0",
+    "chart.js": "^4.5.1",
+    "dotenv": "^16.6.1",
+    "electron-store": "^8.2.0",
+    "electron-updater": "^6.8.3",
+    "openai": "^4.104.0",
+    "screenshot-desktop": "^1.15.3"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^26.8.1"
+  },
+  "overrides": {
+    "@electron/rebuild": {
+      "node-gyp": "^12.2.0"
+    }
+  }
+}

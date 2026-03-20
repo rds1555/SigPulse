@@ -1,0 +1,14 @@
+SigPulse — License agreement
+
+Copyright © 2026 SigPulse. All rights reserved.
+
+ABOUT THIS SOFTWARE
+SigPulse is a desktop application that helps you understand focus, activity, and work patterns. Processing and storage follow the privacy settings you choose inside the app (including optional screenshots and optional cloud AI features when configured).
+
+OPEN-SOURCE LICENSE
+This product incorporates components released under the MIT License and other permissive licenses. The application as distributed may be subject to the MIT License; see the project LICENSE file in the source repository for full license text.
+
+DISCLAIMER
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM YOUR USE OF THE SOFTWARE.
+
+By continuing with installation, you accept these terms.
