@@ -1,6 +1,6 @@
 {
   "name": "sigpulse",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "SigPulse helps you understand focus, activity, and work patterns with local-first tracking and optional AI-powered daily insights—built for clarity and privacy.",
   "main": "main/index.js",
   "scripts": {
@@ -70,8 +70,7 @@
     "dotenv": "^16.6.1",
     "electron-store": "^8.2.0",
     "electron-updater": "^6.8.3",
-    "openai": "^4.104.0",
-    "screenshot-desktop": "^1.15.3"
+    "openai": "^4.104.0"
   },
   "devDependencies": {
     "electron": "^28.0.0",
