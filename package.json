@@ -1,6 +1,6 @@
 {
   "name": "sigpulse",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "SigPulse helps you understand focus, activity, and work patterns with local-first tracking and optional AI-powered daily insights—built for clarity and privacy.",
   "main": "main/index.js",
   "scripts": {
